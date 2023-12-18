@@ -12,6 +12,7 @@ export class BurgerController extends BaseController {
         this.router
             .get('', this.getBurgers)
             .post('', this.createBurger)
+            .delete('/:burgerId', this.removeBurger)
     }
 
 
@@ -35,6 +36,15 @@ export class BurgerController extends BaseController {
         }
     }
 
+    removeBurger(request, response, next) {
+        try {
+            const burgerId = request.params.burgerId
+            const message = burgerService.removeBurger(burgerId)
+            response.send(message)
+        } catch (error) {
+            next(error)
+        }
+    }
 
 
 }
